@@ -14,11 +14,12 @@ def SpeakText(command):
     engine.runAndWait()
     
     
-# Loop infinitely: User's Speech will be converted to Text
-
-while(1):    
+# Loop until exit commmand: User's Speech will be converted to Text
+running = True
+while(running):    
     
     try:
+        print("Listening for input...Say EXIT NOW to end.")
         # Use Microphone as input
         with sr.Microphone() as source2:
             
@@ -34,6 +35,8 @@ while(1):
 
             print("Recorded speech", MyText)
             SpeakText(MyText)
+            if "EXIT NOW" in MyText.upper():
+                running = False
             
     except sr.RequestError as e:
         print("Could not request results; {0}".format(e))
